@@ -1,0 +1,162 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="employee">
+      <h2 data-cy="employeeDetailsHeading"><span jhiTranslate="gshhris3App.employee.detail.title">Employee</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ employee.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.employeeId">Employee Id</span></dt>
+        <dd>
+          <span>{{ employee.employeeId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.username">Username</span></dt>
+        <dd>
+          <span>{{ employee.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.email">Email</span></dt>
+        <dd>
+          <span>{{ employee.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ employee.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.middleName">Middle Name</span></dt>
+        <dd>
+          <span>{{ employee.middleName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ employee.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.nameSuffix">Name Suffix</span></dt>
+        <dd>
+          <span>{{ employee.nameSuffix }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.birthdate">Birthdate</span></dt>
+        <dd>
+          <span>{{ employee.birthdate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.gender">Gender</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gshhris3App.Gender.' + employee.gender }}">{{ employee.gender }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gshhris3App.Status.' + employee.status }}">{{ employee.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.employmentType">Employment Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gshhris3App.EmploymentType.' + employee.employmentType }}">{{ employee.employmentType }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.mobileNumber">Mobile Number</span></dt>
+        <dd>
+          <span>{{ employee.mobileNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.dateHired">Date Hired</span></dt>
+        <dd>
+          <span>{{ employee.dateHired | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.dateDeno">Date Deno</span></dt>
+        <dd>
+          <span>{{ employee.dateDeno | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.sickLeaveYearlyCredit">Sick Leave Yearly Credit</span></dt>
+        <dd>
+          <span>{{ employee.sickLeaveYearlyCredit }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.sickLeaveYearlyCreditUsed">Sick Leave Yearly Credit Used</span></dt>
+        <dd>
+          <span>{{ employee.sickLeaveYearlyCreditUsed }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.leaveYearlyCredit">Leave Yearly Credit</span></dt>
+        <dd>
+          <span>{{ employee.leaveYearlyCredit }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.leaveYearlyCreditUsed">Leave Yearly Credit Used</span></dt>
+        <dd>
+          <span>{{ employee.leaveYearlyCreditUsed }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.profileImage">Profile Image</span></dt>
+        <dd>
+          <div *ngIf="employee.profileImage">
+            <a (click)="openFile(employee.profileImage, employee.profileImageContentType)">
+              <img
+                [src]="'data:' + employee.profileImageContentType + ';base64,' + employee.profileImage"
+                style="max-width: 100%"
+                alt="employee image"
+              />
+            </a>
+            {{ employee.profileImageContentType }}, {{ byteSize(employee.profileImage) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.presentAddressStreet">Present Address Street</span></dt>
+        <dd>
+          <span>{{ employee.presentAddressStreet }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.presentAddressCity">Present Address City</span></dt>
+        <dd>
+          <span>{{ employee.presentAddressCity }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.presentAddressProvince">Present Address Province</span></dt>
+        <dd>
+          <span>{{ employee.presentAddressProvince }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.presentAddressZipcode">Present Address Zipcode</span></dt>
+        <dd>
+          <span>{{ employee.presentAddressZipcode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.homeAddressStreet">Home Address Street</span></dt>
+        <dd>
+          <span>{{ employee.homeAddressStreet }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.homeAddressCity">Home Address City</span></dt>
+        <dd>
+          <span>{{ employee.homeAddressCity }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.homeAddressProvince">Home Address Province</span></dt>
+        <dd>
+          <span>{{ employee.homeAddressProvince }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.homeAddressZipcode">Home Address Zipcode</span></dt>
+        <dd>
+          <span>{{ employee.homeAddressZipcode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.user">User</span></dt>
+        <dd>
+          <span>{{ employee.user?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.designation">Designation</span></dt>
+        <dd>
+          <span *ngFor="let designation of employee.designations; let last = last">
+            <a [routerLink]="['/designation', designation?.id, 'view']">{{ designation.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.department">Department</span></dt>
+        <dd>
+          <div *ngIf="employee.department">
+            <a [routerLink]="['/department', employee.department?.id, 'view']">{{ employee.department?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/employee', employee.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

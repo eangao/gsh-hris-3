@@ -15,7 +15,31 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033456_added_entity_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033457_added_entity_Cluster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033458_added_entity_Department.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033459_added_entity_Designation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033500_added_entity_DutySchedule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033501_added_entity_DailyTimeRecord.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033502_added_entity_Benefits.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033503_added_entity_Dependents.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033504_added_entity_Education.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033505_added_entity_TrainingHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033506_added_entity_Leave.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033507_added_entity_LeaveType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033508_added_entity_Holiday.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033509_added_entity_HolidayType.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20211029033456_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033458_added_entity_constraints_Department.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033500_added_entity_constraints_DutySchedule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033501_added_entity_constraints_DailyTimeRecord.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033502_added_entity_constraints_Benefits.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033503_added_entity_constraints_Dependents.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033504_added_entity_constraints_Education.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033505_added_entity_constraints_TrainingHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033506_added_entity_constraints_Leave.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211029033459_added_entity_constraints_Designation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,9 @@
+{
+  "gshhris3App": {
+    "Gender": {
+      "null": "",
+      "MALE": "MALE",
+      "FEMALE": "FEMALE"
+    }
+  }
+}
