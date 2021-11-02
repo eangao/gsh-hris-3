@@ -32,15 +32,8 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="employeeId">
             <span jhiTranslate="gshhris3App.employee.employeeId">Employee Id</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="username">
-            <span jhiTranslate="gshhris3App.employee.username">Username</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="email">
-            <span jhiTranslate="gshhris3App.employee.email">Email</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="firstName">
             <span jhiTranslate="gshhris3App.employee.firstName">First Name</span> <fa-icon icon="sort"></fa-icon>
@@ -50,9 +43,6 @@
           </th>
           <th scope="col" jhiSortBy="lastName">
             <span jhiTranslate="gshhris3App.employee.lastName">Last Name</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="nameSuffix">
-            <span jhiTranslate="gshhris3App.employee.nameSuffix">Name Suffix</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="birthdate">
             <span jhiTranslate="gshhris3App.employee.birthdate">Birthdate</span> <fa-icon icon="sort"></fa-icon>
@@ -66,57 +56,11 @@
           <th scope="col" jhiSortBy="employmentType">
             <span jhiTranslate="gshhris3App.employee.employmentType">Employment Type</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="email">
+            <span jhiTranslate="gshhris3App.employee.email">Email</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="mobileNumber">
             <span jhiTranslate="gshhris3App.employee.mobileNumber">Mobile Number</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateHired">
-            <span jhiTranslate="gshhris3App.employee.dateHired">Date Hired</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateDeno">
-            <span jhiTranslate="gshhris3App.employee.dateDeno">Date Deno</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="sickLeaveYearlyCredit">
-            <span jhiTranslate="gshhris3App.employee.sickLeaveYearlyCredit">Sick Leave Yearly Credit</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="sickLeaveYearlyCreditUsed">
-            <span jhiTranslate="gshhris3App.employee.sickLeaveYearlyCreditUsed">Sick Leave Yearly Credit Used</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="leaveYearlyCredit">
-            <span jhiTranslate="gshhris3App.employee.leaveYearlyCredit">Leave Yearly Credit</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="leaveYearlyCreditUsed">
-            <span jhiTranslate="gshhris3App.employee.leaveYearlyCreditUsed">Leave Yearly Credit Used</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="profileImage">
-            <span jhiTranslate="gshhris3App.employee.profileImage">Profile Image</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="presentAddressStreet">
-            <span jhiTranslate="gshhris3App.employee.presentAddressStreet">Present Address Street</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="presentAddressCity">
-            <span jhiTranslate="gshhris3App.employee.presentAddressCity">Present Address City</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="presentAddressProvince">
-            <span jhiTranslate="gshhris3App.employee.presentAddressProvince">Present Address Province</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="presentAddressZipcode">
-            <span jhiTranslate="gshhris3App.employee.presentAddressZipcode">Present Address Zipcode</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="homeAddressStreet">
-            <span jhiTranslate="gshhris3App.employee.homeAddressStreet">Home Address Street</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="homeAddressCity">
-            <span jhiTranslate="gshhris3App.employee.homeAddressCity">Home Address City</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="homeAddressProvince">
-            <span jhiTranslate="gshhris3App.employee.homeAddressProvince">Home Address Province</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="homeAddressZipcode">
-            <span jhiTranslate="gshhris3App.employee.homeAddressZipcode">Home Address Zipcode</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="user.login">
-            <span jhiTranslate="gshhris3App.employee.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="department.name">
             <span jhiTranslate="gshhris3App.employee.department">Department</span> <fa-icon icon="sort"></fa-icon>
@@ -126,48 +70,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let employee of employees; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/employee', employee.id, 'view']">{{ employee.id }}</a>
-          </td>
           <td>{{ employee.employeeId }}</td>
-          <td>{{ employee.username }}</td>
-          <td>{{ employee.email }}</td>
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.middleName }}</td>
           <td>{{ employee.lastName }}</td>
-          <td>{{ employee.nameSuffix }}</td>
           <td>{{ employee.birthdate | formatMediumDate }}</td>
           <td jhiTranslate="{{ 'gshhris3App.Gender.' + employee.gender }}">{{ employee.gender }}</td>
           <td jhiTranslate="{{ 'gshhris3App.Status.' + employee.status }}">{{ employee.status }}</td>
           <td jhiTranslate="{{ 'gshhris3App.EmploymentType.' + employee.employmentType }}">{{ employee.employmentType }}</td>
+          <td>{{ employee.email }}</td>
           <td>{{ employee.mobileNumber }}</td>
-          <td>{{ employee.dateHired | formatMediumDate }}</td>
-          <td>{{ employee.dateDeno | formatMediumDate }}</td>
-          <td>{{ employee.sickLeaveYearlyCredit }}</td>
-          <td>{{ employee.sickLeaveYearlyCreditUsed }}</td>
-          <td>{{ employee.leaveYearlyCredit }}</td>
-          <td>{{ employee.leaveYearlyCreditUsed }}</td>
-          <td>
-            <a *ngIf="employee.profileImage" (click)="openFile(employee.profileImage, employee.profileImageContentType)">
-              <img
-                [src]="'data:' + employee.profileImageContentType + ';base64,' + employee.profileImage"
-                style="max-height: 30px"
-                alt="employee image"
-              />
-            </a>
-            <span *ngIf="employee.profileImage">{{ employee.profileImageContentType }}, {{ byteSize(employee.profileImage) }}</span>
-          </td>
-          <td>{{ employee.presentAddressStreet }}</td>
-          <td>{{ employee.presentAddressCity }}</td>
-          <td>{{ employee.presentAddressProvince }}</td>
-          <td>{{ employee.presentAddressZipcode }}</td>
-          <td>{{ employee.homeAddressStreet }}</td>
-          <td>{{ employee.homeAddressCity }}</td>
-          <td>{{ employee.homeAddressProvince }}</td>
-          <td>{{ employee.homeAddressZipcode }}</td>
-          <td>
-            {{ employee.user?.login }}
-          </td>
           <td>
             <div *ngIf="employee.department">
               <a [routerLink]="['/department', employee.department?.id, 'view']">{{ employee.department?.name }}</a>
