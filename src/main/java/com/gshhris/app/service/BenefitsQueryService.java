@@ -96,7 +96,10 @@ public class BenefitsQueryService extends QueryService<Benefits> {
             if (criteria.getEmployeeId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getEmployeeId(), root -> root.join(Benefits_.employee, JoinType.LEFT).get(Employee_.id))
+                        buildSpecification(
+                            criteria.getEmployeeId(),
+                            root -> root.join(Benefits_.employees, JoinType.LEFT).get(Employee_.id)
+                        )
                     );
             }
         }

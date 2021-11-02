@@ -14,6 +14,8 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IDesignation } from 'app/entities/designation/designation.model';
 import { DesignationService } from 'app/entities/designation/service/designation.service';
+import { IBenefits } from 'app/entities/benefits/benefits.model';
+import { BenefitsService } from 'app/entities/benefits/service/benefits.service';
 import { IDepartment } from 'app/entities/department/department.model';
 import { DepartmentService } from 'app/entities/department/service/department.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
@@ -32,6 +34,7 @@ export class EmployeeUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   designationsSharedCollection: IDesignation[] = [];
+  benefitsSharedCollection: IBenefits[] = [];
   departmentsSharedCollection: IDepartment[] = [];
 
   editForm = this.fb.group({
@@ -66,6 +69,7 @@ export class EmployeeUpdateComponent implements OnInit {
     homeAddressZipcode: [],
     user: [null, Validators.required],
     designations: [null, Validators.required],
+    benefits: [],
     department: [null, Validators.required],
   });
 
@@ -75,6 +79,7 @@ export class EmployeeUpdateComponent implements OnInit {
     protected employeeService: EmployeeService,
     protected userService: UserService,
     protected designationService: DesignationService,
+    protected benefitsService: BenefitsService,
     protected departmentService: DepartmentService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
@@ -136,11 +141,26 @@ export class EmployeeUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackBenefitsById(index: number, item: IBenefits): number {
+    return item.id!;
+  }
+
   trackDepartmentById(index: number, item: IDepartment): number {
     return item.id!;
   }
 
   getSelectedDesignation(option: IDesignation, selectedVals?: IDesignation[]): IDesignation {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
+  getSelectedBenefits(option: IBenefits, selectedVals?: IBenefits[]): IBenefits {
     if (selectedVals) {
       for (const selectedVal of selectedVals) {
         if (option.id === selectedVal.id) {
@@ -203,6 +223,7 @@ export class EmployeeUpdateComponent implements OnInit {
       homeAddressZipcode: employee.homeAddressZipcode,
       user: employee.user,
       designations: employee.designations,
+      benefits: employee.benefits,
       department: employee.department,
     });
 
@@ -210,6 +231,10 @@ export class EmployeeUpdateComponent implements OnInit {
     this.designationsSharedCollection = this.designationService.addDesignationToCollectionIfMissing(
       this.designationsSharedCollection,
       ...(employee.designations ?? [])
+    );
+    this.benefitsSharedCollection = this.benefitsService.addBenefitsToCollectionIfMissing(
+      this.benefitsSharedCollection,
+      ...(employee.benefits ?? [])
     );
     this.departmentsSharedCollection = this.departmentService.addDepartmentToCollectionIfMissing(
       this.departmentsSharedCollection,
@@ -233,6 +258,16 @@ export class EmployeeUpdateComponent implements OnInit {
         )
       )
       .subscribe((designations: IDesignation[]) => (this.designationsSharedCollection = designations));
+
+    this.benefitsService
+      .query()
+      .pipe(map((res: HttpResponse<IBenefits[]>) => res.body ?? []))
+      .pipe(
+        map((benefits: IBenefits[]) =>
+          this.benefitsService.addBenefitsToCollectionIfMissing(benefits, ...(this.editForm.get('benefits')!.value ?? []))
+        )
+      )
+      .subscribe((benefits: IBenefits[]) => (this.benefitsSharedCollection = benefits));
 
     this.departmentService
       .query()
@@ -279,6 +314,7 @@ export class EmployeeUpdateComponent implements OnInit {
       homeAddressZipcode: this.editForm.get(['homeAddressZipcode'])!.value,
       user: this.editForm.get(['user'])!.value,
       designations: this.editForm.get(['designations'])!.value,
+      benefits: this.editForm.get(['benefits'])!.value,
       department: this.editForm.get(['department'])!.value,
     };
   }

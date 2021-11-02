@@ -2923,32 +2923,6 @@ class EmployeeResourceIT {
 
     @Test
     @Transactional
-    void getAllEmployeesByBenefitsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        employeeRepository.saveAndFlush(employee);
-        Benefits benefits;
-        if (TestUtil.findAll(em, Benefits.class).isEmpty()) {
-            benefits = BenefitsResourceIT.createEntity(em);
-            em.persist(benefits);
-            em.flush();
-        } else {
-            benefits = TestUtil.findAll(em, Benefits.class).get(0);
-        }
-        em.persist(benefits);
-        em.flush();
-        employee.addBenefits(benefits);
-        employeeRepository.saveAndFlush(employee);
-        Long benefitsId = benefits.getId();
-
-        // Get all the employeeList where benefits equals to benefitsId
-        defaultEmployeeShouldBeFound("benefitsId.equals=" + benefitsId);
-
-        // Get all the employeeList where benefits equals to (benefitsId + 1)
-        defaultEmployeeShouldNotBeFound("benefitsId.equals=" + (benefitsId + 1));
-    }
-
-    @Test
-    @Transactional
     void getAllEmployeesByDependentsIsEqualToSomething() throws Exception {
         // Initialize the database
         employeeRepository.saveAndFlush(employee);
@@ -3075,6 +3049,32 @@ class EmployeeResourceIT {
 
         // Get all the employeeList where designation equals to (designationId + 1)
         defaultEmployeeShouldNotBeFound("designationId.equals=" + (designationId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllEmployeesByBenefitsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+        Benefits benefits;
+        if (TestUtil.findAll(em, Benefits.class).isEmpty()) {
+            benefits = BenefitsResourceIT.createEntity(em);
+            em.persist(benefits);
+            em.flush();
+        } else {
+            benefits = TestUtil.findAll(em, Benefits.class).get(0);
+        }
+        em.persist(benefits);
+        em.flush();
+        employee.addBenefits(benefits);
+        employeeRepository.saveAndFlush(employee);
+        Long benefitsId = benefits.getId();
+
+        // Get all the employeeList where benefits equals to benefitsId
+        defaultEmployeeShouldBeFound("benefitsId.equals=" + benefitsId);
+
+        // Get all the employeeList where benefits equals to (benefitsId + 1)
+        defaultEmployeeShouldNotBeFound("benefitsId.equals=" + (benefitsId + 1));
     }
 
     @Test

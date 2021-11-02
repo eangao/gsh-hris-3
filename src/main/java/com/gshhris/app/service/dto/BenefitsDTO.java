@@ -15,8 +15,6 @@ public class BenefitsDTO implements Serializable {
     @Size(max = 100)
     private String name;
 
-    private EmployeeDTO employee;
-
     public Long getId() {
         return id;
     }
@@ -31,14 +29,6 @@ public class BenefitsDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public EmployeeDTO getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(EmployeeDTO employee) {
-        this.employee = employee;
     }
 
     @Override
@@ -68,7 +58,6 @@ public class BenefitsDTO implements Serializable {
         return "BenefitsDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", employee=" + getEmployee() +
             "}";
     }
 }

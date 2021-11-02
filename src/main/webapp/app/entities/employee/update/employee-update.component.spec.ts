@@ -14,6 +14,8 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IDesignation } from 'app/entities/designation/designation.model';
 import { DesignationService } from 'app/entities/designation/service/designation.service';
+import { IBenefits } from 'app/entities/benefits/benefits.model';
+import { BenefitsService } from 'app/entities/benefits/service/benefits.service';
 import { IDepartment } from 'app/entities/department/department.model';
 import { DepartmentService } from 'app/entities/department/service/department.service';
 
@@ -26,6 +28,7 @@ describe('Employee Management Update Component', () => {
   let employeeService: EmployeeService;
   let userService: UserService;
   let designationService: DesignationService;
+  let benefitsService: BenefitsService;
   let departmentService: DepartmentService;
 
   beforeEach(() => {
@@ -42,6 +45,7 @@ describe('Employee Management Update Component', () => {
     employeeService = TestBed.inject(EmployeeService);
     userService = TestBed.inject(UserService);
     designationService = TestBed.inject(DesignationService);
+    benefitsService = TestBed.inject(BenefitsService);
     departmentService = TestBed.inject(DepartmentService);
 
     comp = fixture.componentInstance;
@@ -86,6 +90,25 @@ describe('Employee Management Update Component', () => {
       expect(comp.designationsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Benefits query and add missing value', () => {
+      const employee: IEmployee = { id: 456 };
+      const benefits: IBenefits[] = [{ id: 10218 }];
+      employee.benefits = benefits;
+
+      const benefitsCollection: IBenefits[] = [{ id: 58413 }];
+      jest.spyOn(benefitsService, 'query').mockReturnValue(of(new HttpResponse({ body: benefitsCollection })));
+      const additionalBenefits = [...benefits];
+      const expectedCollection: IBenefits[] = [...additionalBenefits, ...benefitsCollection];
+      jest.spyOn(benefitsService, 'addBenefitsToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ employee });
+      comp.ngOnInit();
+
+      expect(benefitsService.query).toHaveBeenCalled();
+      expect(benefitsService.addBenefitsToCollectionIfMissing).toHaveBeenCalledWith(benefitsCollection, ...additionalBenefits);
+      expect(comp.benefitsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call Department query and add missing value', () => {
       const employee: IEmployee = { id: 456 };
       const department: IDepartment = { id: 35363 };
@@ -111,6 +134,8 @@ describe('Employee Management Update Component', () => {
       employee.user = user;
       const designations: IDesignation = { id: 92741 };
       employee.designations = [designations];
+      const benefits: IBenefits = { id: 82267 };
+      employee.benefits = [benefits];
       const department: IDepartment = { id: 60127 };
       employee.department = department;
 
@@ -120,6 +145,7 @@ describe('Employee Management Update Component', () => {
       expect(comp.editForm.value).toEqual(expect.objectContaining(employee));
       expect(comp.usersSharedCollection).toContain(user);
       expect(comp.designationsSharedCollection).toContain(designations);
+      expect(comp.benefitsSharedCollection).toContain(benefits);
       expect(comp.departmentsSharedCollection).toContain(department);
     });
   });
@@ -205,6 +231,14 @@ describe('Employee Management Update Component', () => {
       });
     });
 
+    describe('trackBenefitsById', () => {
+      it('Should return tracked Benefits primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackBenefitsById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
     describe('trackDepartmentById', () => {
       it('Should return tracked Department primary key', () => {
         const entity = { id: 123 };
@@ -236,6 +270,32 @@ describe('Employee Management Update Component', () => {
         const option = { id: 123 };
         const selected = { id: 456 };
         const result = comp.getSelectedDesignation(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
+      });
+    });
+
+    describe('getSelectedBenefits', () => {
+      it('Should return option if no Benefits is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedBenefits(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected Benefits for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedBenefits(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this Benefits is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedBenefits(option, [selected]);
         expect(result === option).toEqual(true);
         expect(result === selected).toEqual(false);
       });

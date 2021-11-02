@@ -2,12 +2,12 @@ import * as dayjs from 'dayjs';
 import { IUser } from 'app/entities/user/user.model';
 import { IDutySchedule } from 'app/entities/duty-schedule/duty-schedule.model';
 import { IDailyTimeRecord } from 'app/entities/daily-time-record/daily-time-record.model';
-import { IBenefits } from 'app/entities/benefits/benefits.model';
 import { IDependents } from 'app/entities/dependents/dependents.model';
 import { IEducation } from 'app/entities/education/education.model';
 import { ITrainingHistory } from 'app/entities/training-history/training-history.model';
 import { ILeave } from 'app/entities/leave/leave.model';
 import { IDesignation } from 'app/entities/designation/designation.model';
+import { IBenefits } from 'app/entities/benefits/benefits.model';
 import { IDepartment } from 'app/entities/department/department.model';
 import { Gender } from 'app/entities/enumerations/gender.model';
 import { Status } from 'app/entities/enumerations/status.model';
@@ -46,12 +46,12 @@ export interface IEmployee {
   user?: IUser;
   dutySchedules?: IDutySchedule[] | null;
   dailyTimeRecords?: IDailyTimeRecord[] | null;
-  benefits?: IBenefits[] | null;
   dependents?: IDependents[] | null;
   educations?: IEducation[] | null;
   trainingHistories?: ITrainingHistory[] | null;
   leaves?: ILeave[] | null;
   designations?: IDesignation[];
+  benefits?: IBenefits[] | null;
   department?: IDepartment;
 }
 
@@ -89,12 +89,12 @@ export class Employee implements IEmployee {
     public user?: IUser,
     public dutySchedules?: IDutySchedule[] | null,
     public dailyTimeRecords?: IDailyTimeRecord[] | null,
-    public benefits?: IBenefits[] | null,
     public dependents?: IDependents[] | null,
     public educations?: IEducation[] | null,
     public trainingHistories?: ITrainingHistory[] | null,
     public leaves?: ILeave[] | null,
     public designations?: IDesignation[],
+    public benefits?: IBenefits[] | null,
     public department?: IDepartment
   ) {}
 }

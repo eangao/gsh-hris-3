@@ -159,12 +159,6 @@
     },
     {
       "relationshipType": "one-to-many",
-      "otherEntityName": "benefits",
-      "otherEntityRelationshipName": "employee",
-      "relationshipName": "benefits"
-    },
-    {
-      "relationshipType": "one-to-many",
       "otherEntityName": "dependents",
       "otherEntityRelationshipName": "employee",
       "relationshipName": "dependents"
@@ -193,6 +187,14 @@
       "otherEntityRelationshipName": "employee",
       "relationshipValidateRules": "required",
       "relationshipName": "designation",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "benefits",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "benefits",
       "otherEntityField": "name",
       "ownerSide": true
     },

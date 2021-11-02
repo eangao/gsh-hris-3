@@ -120,6 +120,17 @@
         </createTable>
 
         <addPrimaryKey columnNames="employee_id, designation_id" tableName="rel_employee__designation"/>
+
+        <createTable tableName="rel_employee__benefits">
+            <column name="benefits_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="employee_id, benefits_id" tableName="rel_employee__benefits"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

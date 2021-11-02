@@ -18,12 +18,6 @@
         <dd>
           <span>{{ benefits.name }}</span>
         </dd>
-        <dt><span jhiTranslate="gshhris3App.benefits.employee">Employee</span></dt>
-        <dd>
-          <div *ngIf="benefits.employee">
-            <a [routerLink]="['/employee', benefits.employee?.id, 'view']">{{ benefits.employee?.employeeId }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

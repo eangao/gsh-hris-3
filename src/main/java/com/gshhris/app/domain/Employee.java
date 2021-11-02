@@ -143,10 +143,6 @@ public class Employee implements Serializable {
 
     @OneToMany(mappedBy = "employee")
     @JsonIgnoreProperties(value = { "employee" }, allowSetters = true)
-    private Set<Benefits> benefits = new HashSet<>();
-
-    @OneToMany(mappedBy = "employee")
-    @JsonIgnoreProperties(value = { "employee" }, allowSetters = true)
     private Set<Dependents> dependents = new HashSet<>();
 
     @OneToMany(mappedBy = "employee")
@@ -170,6 +166,15 @@ public class Employee implements Serializable {
     )
     @JsonIgnoreProperties(value = { "employees" }, allowSetters = true)
     private Set<Designation> designations = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_employee__benefits",
+        joinColumns = @JoinColumn(name = "employee_id"),
+        inverseJoinColumns = @JoinColumn(name = "benefits_id")
+    )
+    @JsonIgnoreProperties(value = { "employees" }, allowSetters = true)
+    private Set<Benefits> benefits = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -630,37 +635,6 @@ public class Employee implements Serializable {
         return this;
     }
 
-    public Set<Benefits> getBenefits() {
-        return this.benefits;
-    }
-
-    public void setBenefits(Set<Benefits> benefits) {
-        if (this.benefits != null) {
-            this.benefits.forEach(i -> i.setEmployee(null));
-        }
-        if (benefits != null) {
-            benefits.forEach(i -> i.setEmployee(this));
-        }
-        this.benefits = benefits;
-    }
-
-    public Employee benefits(Set<Benefits> benefits) {
-        this.setBenefits(benefits);
-        return this;
-    }
-
-    public Employee addBenefits(Benefits benefits) {
-        this.benefits.add(benefits);
-        benefits.setEmployee(this);
-        return this;
-    }
-
-    public Employee removeBenefits(Benefits benefits) {
-        this.benefits.remove(benefits);
-        benefits.setEmployee(null);
-        return this;
-    }
-
     public Set<Dependents> getDependents() {
         return this.dependents;
     }
@@ -807,6 +781,31 @@ public class Employee implements Serializable {
     public Employee removeDesignation(Designation designation) {
         this.designations.remove(designation);
         designation.getEmployees().remove(this);
+        return this;
+    }
+
+    public Set<Benefits> getBenefits() {
+        return this.benefits;
+    }
+
+    public void setBenefits(Set<Benefits> benefits) {
+        this.benefits = benefits;
+    }
+
+    public Employee benefits(Set<Benefits> benefits) {
+        this.setBenefits(benefits);
+        return this;
+    }
+
+    public Employee addBenefits(Benefits benefits) {
+        this.benefits.add(benefits);
+        benefits.getEmployees().add(this);
+        return this;
+    }
+
+    public Employee removeBenefits(Benefits benefits) {
+        this.benefits.remove(benefits);
+        benefits.getEmployees().remove(this);
         return this;
     }
 

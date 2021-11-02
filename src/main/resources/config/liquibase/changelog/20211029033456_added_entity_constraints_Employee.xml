@@ -26,6 +26,18 @@
                                  referencedColumnNames="id"
                                  referencedTableName="designation"/>
 
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="rel_employee__benefits"
+                                 constraintName="fk_rel_employee__benefits__employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="benefits_id"
+                                 baseTableName="rel_employee__benefits"
+                                 constraintName="fk_rel_employee__benefits__benefits_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="benefits"/>
+
         <addForeignKeyConstraint baseColumnNames="department_id"
                                  baseTableName="employee"
                                  constraintName="fk_employee__department_id"

@@ -2,6 +2,8 @@ package com.gshhris.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -24,24 +26,23 @@ public class Benefits implements Serializable {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToMany(mappedBy = "benefits")
     @JsonIgnoreProperties(
         value = {
             "user",
             "dutySchedules",
             "dailyTimeRecords",
-            "benefits",
             "dependents",
             "educations",
             "trainingHistories",
             "leaves",
             "designations",
+            "benefits",
             "department",
         },
         allowSetters = true
     )
-    private Employee employee;
+    private Set<Employee> employees = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -71,16 +72,34 @@ public class Benefits implements Serializable {
         this.name = name;
     }
 
-    public Employee getEmployee() {
-        return this.employee;
+    public Set<Employee> getEmployees() {
+        return this.employees;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployees(Set<Employee> employees) {
+        if (this.employees != null) {
+            this.employees.forEach(i -> i.removeBenefits(this));
+        }
+        if (employees != null) {
+            employees.forEach(i -> i.addBenefits(this));
+        }
+        this.employees = employees;
     }
 
-    public Benefits employee(Employee employee) {
-        this.setEmployee(employee);
+    public Benefits employees(Set<Employee> employees) {
+        this.setEmployees(employees);
+        return this;
+    }
+
+    public Benefits addEmployee(Employee employee) {
+        this.employees.add(employee);
+        employee.getBenefits().add(this);
+        return this;
+    }
+
+    public Benefits removeEmployee(Employee employee) {
+        this.employees.remove(employee);
+        employee.getBenefits().remove(this);
         return this;
     }
 

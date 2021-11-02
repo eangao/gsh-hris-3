@@ -139,7 +139,6 @@ relationship OneToMany{
     Department to Employee{department(name) required}
     Employee to DutySchedule{employee(employeeId) required}
     Employee to DailyTimeRecord{employee(employeeId) required}
-    Employee to Benefits{employee(employeeId) required}
     Employee to Dependents{employee(employeeId) required}
     Employee to Education{employee(employeeId) required}
     Employee to TrainingHistory{employee(employeeId) required}
@@ -149,6 +148,7 @@ relationship OneToMany{
 
 relationship ManyToMany {
 	 Employee{designation(name) required}  to Designation{employee}
+     Employee{benefits(name) } to Benefits{employee}
 }
 
 

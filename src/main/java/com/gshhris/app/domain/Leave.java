@@ -48,12 +48,12 @@ public class Leave implements Serializable {
             "user",
             "dutySchedules",
             "dailyTimeRecords",
-            "benefits",
             "dependents",
             "educations",
             "trainingHistories",
             "leaves",
             "designations",
+            "benefits",
             "department",
         },
         allowSetters = true

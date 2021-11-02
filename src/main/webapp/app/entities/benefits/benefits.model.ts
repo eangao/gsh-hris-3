@@ -3,11 +3,11 @@ import { IEmployee } from 'app/entities/employee/employee.model';
 export interface IBenefits {
   id?: number;
   name?: string;
-  employee?: IEmployee;
+  employees?: IEmployee[] | null;
 }
 
 export class Benefits implements IBenefits {
-  constructor(public id?: number, public name?: string, public employee?: IEmployee) {}
+  constructor(public id?: number, public name?: string, public employees?: IEmployee[] | null) {}
 }
 
 export function getBenefitsIdentifier(benefits: IBenefits): number | undefined {

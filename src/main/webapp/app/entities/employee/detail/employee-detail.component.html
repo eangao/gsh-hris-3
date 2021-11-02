@@ -142,6 +142,13 @@
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
+        <dt><span jhiTranslate="gshhris3App.employee.benefits">Benefits</span></dt>
+        <dd>
+          <span *ngFor="let benefits of employee.benefits; let last = last">
+            <a [routerLink]="['/benefits', benefits?.id, 'view']">{{ benefits.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
         <dt><span jhiTranslate="gshhris3App.employee.department">Department</span></dt>
         <dd>
           <div *ngIf="employee.department">

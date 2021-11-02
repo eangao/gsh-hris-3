@@ -15,14 +15,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, JpaSpecificationExecutor<Employee> {
     @Query(
-        value = "select distinct employee from Employee employee left join fetch employee.designations",
+        value = "select distinct employee from Employee employee left join fetch employee.designations left join fetch employee.benefits",
         countQuery = "select count(distinct employee) from Employee employee"
     )
     Page<Employee> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct employee from Employee employee left join fetch employee.designations")
+    @Query("select distinct employee from Employee employee left join fetch employee.designations left join fetch employee.benefits")
     List<Employee> findAllWithEagerRelationships();
 
-    @Query("select employee from Employee employee left join fetch employee.designations where employee.id =:id")
+    @Query(
+        "select employee from Employee employee left join fetch employee.designations left join fetch employee.benefits where employee.id =:id"
+    )
     Optional<Employee> findOneWithEagerRelationships(@Param("id") Long id);
 }

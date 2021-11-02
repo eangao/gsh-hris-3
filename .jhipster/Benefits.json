@@ -10,12 +10,11 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
       "otherEntityName": "employee",
       "otherEntityRelationshipName": "benefits",
-      "relationshipValidateRules": "required",
       "relationshipName": "employee",
-      "otherEntityField": "employeeId"
+      "ownerSide": false
     }
   ],
   "entityTableName": "benefits",

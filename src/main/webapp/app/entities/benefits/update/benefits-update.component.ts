@@ -3,12 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { IBenefits, Benefits } from '../benefits.model';
 import { BenefitsService } from '../service/benefits.service';
-import { IEmployee } from 'app/entities/employee/employee.model';
-import { EmployeeService } from 'app/entities/employee/service/employee.service';
 
 @Component({
   selector: 'jhi-benefits-update',
@@ -17,26 +15,16 @@ import { EmployeeService } from 'app/entities/employee/service/employee.service'
 export class BenefitsUpdateComponent implements OnInit {
   isSaving = false;
 
-  employeesSharedCollection: IEmployee[] = [];
-
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(100)]],
-    employee: [null, Validators.required],
   });
 
-  constructor(
-    protected benefitsService: BenefitsService,
-    protected employeeService: EmployeeService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+  constructor(protected benefitsService: BenefitsService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ benefits }) => {
       this.updateForm(benefits);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -52,10 +40,6 @@ export class BenefitsUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.benefitsService.create(benefits));
     }
-  }
-
-  trackEmployeeById(index: number, item: IEmployee): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IBenefits>>): void {
@@ -81,25 +65,7 @@ export class BenefitsUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: benefits.id,
       name: benefits.name,
-      employee: benefits.employee,
     });
-
-    this.employeesSharedCollection = this.employeeService.addEmployeeToCollectionIfMissing(
-      this.employeesSharedCollection,
-      benefits.employee
-    );
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.employeeService
-      .query()
-      .pipe(map((res: HttpResponse<IEmployee[]>) => res.body ?? []))
-      .pipe(
-        map((employees: IEmployee[]) =>
-          this.employeeService.addEmployeeToCollectionIfMissing(employees, this.editForm.get('employee')!.value)
-        )
-      )
-      .subscribe((employees: IEmployee[]) => (this.employeesSharedCollection = employees));
   }
 
   protected createFromForm(): IBenefits {
@@ -107,7 +73,6 @@ export class BenefitsUpdateComponent implements OnInit {
       ...new Benefits(),
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
-      employee: this.editForm.get(['employee'])!.value,
     };
   }
 }

@@ -201,12 +201,6 @@ public class EmployeeQueryService extends QueryService<Employee> {
                         )
                     );
             }
-            if (criteria.getBenefitsId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getBenefitsId(), root -> root.join(Employee_.benefits, JoinType.LEFT).get(Benefits_.id))
-                    );
-            }
             if (criteria.getDependentsId() != null) {
                 specification =
                     specification.and(
@@ -247,6 +241,12 @@ public class EmployeeQueryService extends QueryService<Employee> {
                             criteria.getDesignationId(),
                             root -> root.join(Employee_.designations, JoinType.LEFT).get(Designation_.id)
                         )
+                    );
+            }
+            if (criteria.getBenefitsId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getBenefitsId(), root -> root.join(Employee_.benefits, JoinType.LEFT).get(Benefits_.id))
                     );
             }
             if (criteria.getDepartmentId() != null) {

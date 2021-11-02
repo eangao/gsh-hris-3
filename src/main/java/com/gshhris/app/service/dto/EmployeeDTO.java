@@ -93,6 +93,8 @@ public class EmployeeDTO implements Serializable {
 
     private Set<DesignationDTO> designations = new HashSet<>();
 
+    private Set<BenefitsDTO> benefits = new HashSet<>();
+
     private DepartmentDTO department;
 
     public Long getId() {
@@ -343,6 +345,14 @@ public class EmployeeDTO implements Serializable {
         this.designations = designations;
     }
 
+    public Set<BenefitsDTO> getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(Set<BenefitsDTO> benefits) {
+        this.benefits = benefits;
+    }
+
     public DepartmentDTO getDepartment() {
         return department;
     }
@@ -406,6 +416,7 @@ public class EmployeeDTO implements Serializable {
             ", homeAddressZipcode=" + getHomeAddressZipcode() +
             ", user=" + getUser() +
             ", designations=" + getDesignations() +
+            ", benefits=" + getBenefits() +
             ", department=" + getDepartment() +
             "}";
     }

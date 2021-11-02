@@ -139,8 +139,6 @@ public class EmployeeCriteria implements Serializable, Criteria {
 
     private LongFilter dailyTimeRecordId;
 
-    private LongFilter benefitsId;
-
     private LongFilter dependentsId;
 
     private LongFilter educationId;
@@ -150,6 +148,8 @@ public class EmployeeCriteria implements Serializable, Criteria {
     private LongFilter leaveId;
 
     private LongFilter designationId;
+
+    private LongFilter benefitsId;
 
     private LongFilter departmentId;
 
@@ -188,12 +188,12 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.userId = other.userId == null ? null : other.userId.copy();
         this.dutyScheduleId = other.dutyScheduleId == null ? null : other.dutyScheduleId.copy();
         this.dailyTimeRecordId = other.dailyTimeRecordId == null ? null : other.dailyTimeRecordId.copy();
-        this.benefitsId = other.benefitsId == null ? null : other.benefitsId.copy();
         this.dependentsId = other.dependentsId == null ? null : other.dependentsId.copy();
         this.educationId = other.educationId == null ? null : other.educationId.copy();
         this.trainingHistoryId = other.trainingHistoryId == null ? null : other.trainingHistoryId.copy();
         this.leaveId = other.leaveId == null ? null : other.leaveId.copy();
         this.designationId = other.designationId == null ? null : other.designationId.copy();
+        this.benefitsId = other.benefitsId == null ? null : other.benefitsId.copy();
         this.departmentId = other.departmentId == null ? null : other.departmentId.copy();
         this.distinct = other.distinct;
     }
@@ -653,21 +653,6 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.dailyTimeRecordId = dailyTimeRecordId;
     }
 
-    public LongFilter getBenefitsId() {
-        return benefitsId;
-    }
-
-    public LongFilter benefitsId() {
-        if (benefitsId == null) {
-            benefitsId = new LongFilter();
-        }
-        return benefitsId;
-    }
-
-    public void setBenefitsId(LongFilter benefitsId) {
-        this.benefitsId = benefitsId;
-    }
-
     public LongFilter getDependentsId() {
         return dependentsId;
     }
@@ -743,6 +728,21 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.designationId = designationId;
     }
 
+    public LongFilter getBenefitsId() {
+        return benefitsId;
+    }
+
+    public LongFilter benefitsId() {
+        if (benefitsId == null) {
+            benefitsId = new LongFilter();
+        }
+        return benefitsId;
+    }
+
+    public void setBenefitsId(LongFilter benefitsId) {
+        this.benefitsId = benefitsId;
+    }
+
     public LongFilter getDepartmentId() {
         return departmentId;
     }
@@ -806,12 +806,12 @@ public class EmployeeCriteria implements Serializable, Criteria {
             Objects.equals(userId, that.userId) &&
             Objects.equals(dutyScheduleId, that.dutyScheduleId) &&
             Objects.equals(dailyTimeRecordId, that.dailyTimeRecordId) &&
-            Objects.equals(benefitsId, that.benefitsId) &&
             Objects.equals(dependentsId, that.dependentsId) &&
             Objects.equals(educationId, that.educationId) &&
             Objects.equals(trainingHistoryId, that.trainingHistoryId) &&
             Objects.equals(leaveId, that.leaveId) &&
             Objects.equals(designationId, that.designationId) &&
+            Objects.equals(benefitsId, that.benefitsId) &&
             Objects.equals(departmentId, that.departmentId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -850,12 +850,12 @@ public class EmployeeCriteria implements Serializable, Criteria {
             userId,
             dutyScheduleId,
             dailyTimeRecordId,
-            benefitsId,
             dependentsId,
             educationId,
             trainingHistoryId,
             leaveId,
             designationId,
+            benefitsId,
             departmentId,
             distinct
         );
@@ -895,12 +895,12 @@ public class EmployeeCriteria implements Serializable, Criteria {
             (userId != null ? "userId=" + userId + ", " : "") +
             (dutyScheduleId != null ? "dutyScheduleId=" + dutyScheduleId + ", " : "") +
             (dailyTimeRecordId != null ? "dailyTimeRecordId=" + dailyTimeRecordId + ", " : "") +
-            (benefitsId != null ? "benefitsId=" + benefitsId + ", " : "") +
             (dependentsId != null ? "dependentsId=" + dependentsId + ", " : "") +
             (educationId != null ? "educationId=" + educationId + ", " : "") +
             (trainingHistoryId != null ? "trainingHistoryId=" + trainingHistoryId + ", " : "") +
             (leaveId != null ? "leaveId=" + leaveId + ", " : "") +
             (designationId != null ? "designationId=" + designationId + ", " : "") +
+            (benefitsId != null ? "benefitsId=" + benefitsId + ", " : "") +
             (departmentId != null ? "departmentId=" + departmentId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

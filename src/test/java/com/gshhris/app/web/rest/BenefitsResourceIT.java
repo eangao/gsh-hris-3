@@ -64,16 +64,6 @@ class BenefitsResourceIT {
      */
     public static Benefits createEntity(EntityManager em) {
         Benefits benefits = new Benefits().name(DEFAULT_NAME);
-        // Add required entity
-        Employee employee;
-        if (TestUtil.findAll(em, Employee.class).isEmpty()) {
-            employee = EmployeeResourceIT.createEntity(em);
-            em.persist(employee);
-            em.flush();
-        } else {
-            employee = TestUtil.findAll(em, Employee.class).get(0);
-        }
-        benefits.setEmployee(employee);
         return benefits;
     }
 
@@ -85,16 +75,6 @@ class BenefitsResourceIT {
      */
     public static Benefits createUpdatedEntity(EntityManager em) {
         Benefits benefits = new Benefits().name(UPDATED_NAME);
-        // Add required entity
-        Employee employee;
-        if (TestUtil.findAll(em, Employee.class).isEmpty()) {
-            employee = EmployeeResourceIT.createUpdatedEntity(em);
-            em.persist(employee);
-            em.flush();
-        } else {
-            employee = TestUtil.findAll(em, Employee.class).get(0);
-        }
-        benefits.setEmployee(employee);
         return benefits;
     }
 
@@ -298,7 +278,7 @@ class BenefitsResourceIT {
         }
         em.persist(employee);
         em.flush();
-        benefits.setEmployee(employee);
+        benefits.addEmployee(employee);
         benefitsRepository.saveAndFlush(benefits);
         Long employeeId = employee.getId();
 

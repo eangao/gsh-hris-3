@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { BenefitsService } from '../service/benefits.service';
 import { IBenefits, Benefits } from '../benefits.model';
-import { IEmployee } from 'app/entities/employee/employee.model';
-import { EmployeeService } from 'app/entities/employee/service/employee.service';
 
 import { BenefitsUpdateComponent } from './benefits-update.component';
 
@@ -19,7 +17,6 @@ describe('Benefits Management Update Component', () => {
   let fixture: ComponentFixture<BenefitsUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let benefitsService: BenefitsService;
-  let employeeService: EmployeeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,41 +30,18 @@ describe('Benefits Management Update Component', () => {
     fixture = TestBed.createComponent(BenefitsUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     benefitsService = TestBed.inject(BenefitsService);
-    employeeService = TestBed.inject(EmployeeService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Employee query and add missing value', () => {
-      const benefits: IBenefits = { id: 456 };
-      const employee: IEmployee = { id: 68742 };
-      benefits.employee = employee;
-
-      const employeeCollection: IEmployee[] = [{ id: 25679 }];
-      jest.spyOn(employeeService, 'query').mockReturnValue(of(new HttpResponse({ body: employeeCollection })));
-      const additionalEmployees = [employee];
-      const expectedCollection: IEmployee[] = [...additionalEmployees, ...employeeCollection];
-      jest.spyOn(employeeService, 'addEmployeeToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ benefits });
-      comp.ngOnInit();
-
-      expect(employeeService.query).toHaveBeenCalled();
-      expect(employeeService.addEmployeeToCollectionIfMissing).toHaveBeenCalledWith(employeeCollection, ...additionalEmployees);
-      expect(comp.employeesSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const benefits: IBenefits = { id: 456 };
-      const employee: IEmployee = { id: 82123 };
-      benefits.employee = employee;
 
       activatedRoute.data = of({ benefits });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(benefits));
-      expect(comp.employeesSharedCollection).toContain(employee);
     });
   });
 
@@ -132,16 +106,6 @@ describe('Benefits Management Update Component', () => {
       expect(benefitsService.update).toHaveBeenCalledWith(benefits);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Tracking relationships identifiers', () => {
-    describe('trackEmployeeById', () => {
-      it('Should return tracked Employee primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackEmployeeById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
     });
   });
 });

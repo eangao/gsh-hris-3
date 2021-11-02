@@ -48,12 +48,12 @@
       "user": "User",
       "dutySchedule": "Duty Schedule",
       "dailyTimeRecord": "Daily Time Record",
-      "benefits": "Benefits",
       "dependents": "Dependents",
       "education": "Education",
       "trainingHistory": "Training History",
       "leave": "Leave",
       "designation": "Designation",
+      "benefits": "Benefits",
       "department": "Department"
     }
   }
