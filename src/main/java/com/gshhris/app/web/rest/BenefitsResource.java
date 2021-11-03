@@ -1,6 +1,7 @@
 package com.gshhris.app.web.rest;
 
 import com.gshhris.app.repository.BenefitsRepository;
+import com.gshhris.app.security.AuthoritiesConstants;
 import com.gshhris.app.service.BenefitsQueryService;
 import com.gshhris.app.service.BenefitsService;
 import com.gshhris.app.service.criteria.BenefitsCriteria;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -65,6 +67,7 @@ public class BenefitsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/benefits")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<BenefitsDTO> createBenefits(@Valid @RequestBody BenefitsDTO benefitsDTO) throws URISyntaxException {
         log.debug("REST request to save Benefits : {}", benefitsDTO);
         if (benefitsDTO.getId() != null) {
@@ -88,6 +91,7 @@ public class BenefitsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/benefits/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<BenefitsDTO> updateBenefits(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody BenefitsDTO benefitsDTO
@@ -194,6 +198,7 @@ public class BenefitsResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/benefits/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteBenefits(@PathVariable Long id) {
         log.debug("REST request to delete Benefits : {}", id);
         benefitsService.delete(id);
