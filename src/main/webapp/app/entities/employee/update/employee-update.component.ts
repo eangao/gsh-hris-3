@@ -67,7 +67,7 @@ export class EmployeeUpdateComponent implements OnInit {
     homeAddressCity: [],
     homeAddressProvince: [],
     homeAddressZipcode: [],
-    user: [null, Validators.required],
+    user: [],
     designations: [null, Validators.required],
     benefits: [],
     department: [null, Validators.required],
